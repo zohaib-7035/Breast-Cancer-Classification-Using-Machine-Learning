@@ -1,72 +1,117 @@
-# Breast Cancer Classification using Logistic Regression
+Breast Cancer Classification with Neural Network 🩺
 
-## Overview
-This project implements a **Breast Cancer Classification model** using **Logistic Regression** in Python. The dataset used is the **Breast Cancer Wisconsin dataset** from Scikit-learn. The goal is to classify breast tumors as **Malignant (cancerous) or Benign (non-cancerous)** based on given features.
+Overview
+This project implements a Neural Network (NN) to classify breast tumors as Malignant or Benign using the Breast Cancer Wisconsin (Diagnostic) dataset from sklearn.datasets. The model is built using TensorFlow and Keras, with data preprocessing steps including standardization and train-test splitting. The project includes training the model, evaluating its performance, and making predictions on new data.
+Features
 
-## Dataset
-The dataset is loaded using:
-```python
-from sklearn.datasets import load_breast_cancer
-breast_cancer_dataset = load_breast_cancer()
-```
-### Features:
-- 30 numerical features describing tumor characteristics
-- **Target Variable:**
-  - `0` → Malignant (cancerous)
-  - `1` → Benign (non-cancerous)
+Dataset: Breast Cancer Wisconsin dataset (sklearn.datasets.load_breast_cancer)
+Model: Neural Network with 3 layers (Flatten, Dense with ReLU, Dense with Sigmoid)
+Preprocessing: Standardization using StandardScaler
+Evaluation: Accuracy and loss metrics, visualized with training/validation plots
+Prediction: Classifies tumors as Malignant (0) or Benign (1)
 
-## Project Structure
-- `Breast Cancer Classification.ipynb` → Jupyter Notebook containing the full implementation.
-- `README.md` → Documentation for the project.
-- `requirements.txt` → List of dependencies required to run the project.
+Dependencies
+To run this project, you need the following Python libraries:
+
+pandas
+numpy
+matplotlib
+scikit-learn
+tensorflow
+
+Install them using pip:
+pip install pandas numpy matplotlib scikit-learn tensorflow
+
+Project Structure
+
+Breast_Cancer_Classification_with_NN.ipynb: Jupyter Notebook containing the entire project code.
+README.md: This file, providing project documentation.
+
+How to Run
+
+Clone the Repository:
+git clone https://github.com/<your-username>/breast-cancer-classification-nn.git
+cd breast-cancer-classification-nn
 
 
-## Implementation Steps
-1. **Load and Explore Data**
-   - Convert dataset to a Pandas DataFrame.
-   - Check dataset properties using `.shape`, `.info()`, and `.describe()`.
-2. **Data Preprocessing**
-   - Check for missing values.
-   - Add `label` column (target values).
-3. **Train-Test Split**
-   ```python
-   from sklearn.model_selection import train_test_split
-   X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.2, random_state=2)
-   ```
-4. **Train the Model**
-   ```python
-   from sklearn.linear_model import LogisticRegression
-   model = LogisticRegression()
-   model.fit(X_train, Y_train)
-   ```
-5. **Evaluate the Model**
-   - Calculate accuracy using `accuracy_score`.
-   ```python
-   from sklearn.metrics import accuracy_score
-   accuracy_score(Y_test, model.predict(X_test))
-   ```
-6. **Make Predictions**
-   - Take user input and predict if the tumor is **Malignant or Benign**.
+Set Up a Virtual Environment (optional but recommended):
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
 
-## Results
-- Training Accuracy: **~95%**
-- Testing Accuracy: **~96%**
 
-## Usage
-To predict a single instance:
-```python
-input_data = (13.54, 14.36, 87.46, 566.3, 0.09779, 0.08129, 0.06664, 0.04781, 0.1885, 0.05766, 0.2699, 0.7886, 2.058, 23.56, 0.008462, 0.0146, 0.02387, 0.01315, 0.0198, 0.0023, 15.11, 19.26, 99.7, 711.2, 0.144, 0.1773, 0.239, 0.1288, 0.2977, 0.07259)
+Install Dependencies:
+pip install -r requirements.txt
 
-prediction = model.predict([input_data])
-print('Malignant' if prediction[0] == 0 else 'Benign')
-```
+If you don’t have a requirements.txt, install the dependencies manually as listed above.
 
-## Dependencies
-- Python 3
-- Pandas
-- NumPy
-- Scikit-learn
+Open the Jupyter Notebook:
+jupyter notebook Breast_Cancer_Classification_with_NN.ipynb
 
----
-Feel free to modify and improve this project! 🚀
 
+Run the Notebook:
+
+Execute the cells in the notebook sequentially.
+The notebook loads the dataset, preprocesses the data, trains the model, evaluates it, and makes predictions.
+
+
+
+Code Breakdown
+Data Loading and Preprocessing
+
+Loads the Breast Cancer dataset using sklearn.datasets.load_breast_cancer.
+Converts the data into a pandas DataFrame and adds the target labels.
+Splits the data into training (80%) and testing (20%) sets.
+Standardizes the features using StandardScaler.
+
+Neural Network Model
+
+A Sequential model with:
+Flatten layer to convert input into a 1D array.
+Dense layer with 20 neurons and ReLU activation.
+Dense output layer with 2 neurons and Sigmoid activation (for binary classification).
+
+
+Compiled with the adam optimizer and sparse_categorical_crossentropy loss.
+
+Training
+
+Trains the model for 10 epochs with a validation split of 0.1.
+Plots training and validation accuracy/loss over epochs.
+
+Evaluation
+
+Evaluates the model on the test set and prints the accuracy.
+
+Prediction
+
+Makes predictions on new data by standardizing the input and using the trained model.
+Converts predictions to labels (0 for Malignant, 1 for Benign) using argmax.
+
+Results
+
+Model Accuracy: The model achieves an accuracy of around 95-98% on the test set (varies with random seed).
+Plots: Training and validation accuracy/loss plots are generated to visualize model performance.
+Sample Prediction:
+For the input data provided, the model predicts whether the tumor is Malignant or Benign.
+
+
+
+Example Prediction
+For the input data:
+(11.76, 21.6, 74.72, 427.9, 0.08637, 0.04966, 0.01657, 0.01115, 0.1495, 0.05888, 0.4062, 1.21, 2.635, 28.47, 0.005857, 0.009758, 0.01168, 0.007445, 0.02406, 0.001769, 12.98, 25.72, 82.98, 516.5, 0.1085, 0.08615, 0.05523, 0.03715, 0.2433, 0.06563)
+
+The model predicts:
+
+Benign (if label is 1) or Malignant (if label is 0), based on the output of argmax.
+
+Future Improvements
+
+Add cross-validation for more robust evaluation.
+Experiment with different model architectures (e.g., more layers, dropout).
+Include hyperparameter tuning (e.g., learning rate, number of epochs).
+Add a user interface for easier input and prediction.
+
+License
+This project is licensed under the MIT License - see the LICENSE file for details.
+Contact
+For questions or contributions, feel free to open an issue or contact the repository owner.
